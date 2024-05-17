@@ -69,7 +69,7 @@ describe("/properties/get endpoint", () => {
     });
 
     // Test case for types of property values
-    it('should respond with types of property values', async () => {
+    it('should respond with correct types of property values', async () => {
         //Arrange
         const reqBody = {
             "name": "property 4",
