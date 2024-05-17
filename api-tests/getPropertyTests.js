@@ -1,6 +1,6 @@
 const { postProperty, getProperty, deleteProperty } = require('../utils/apiUtility');
 
-describe("/properties/{id} endpoint", () => {
+describe("/properties/{id} get endpoint", () => {
     it('should respond with success status code on sending correct id', async () => {
         //Arrange
         const reqBody = {

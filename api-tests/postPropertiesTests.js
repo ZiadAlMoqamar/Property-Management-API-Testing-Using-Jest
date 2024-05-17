@@ -10,13 +10,16 @@ describe("/properties/get endpoint", () => {
             "rent": 5300.5,
             "is_available": true
         };
+
         //Act
         const response = await postProperty(reqBody);
+
         //Assert
         expect(response.statusCode).toBe(200);
         // Assuming it will respond with the property id on success.
         const propertyId = response.body.id;
         expect(propertyId).toBeDefined();
+
         //Teardown
         await deleteProperty(propertyId);
     });
@@ -29,10 +32,12 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+
         //Act
         const postResponse = await postProperty(reqBody);
         const propertyId = postResponse.body.id;
         const response = await getProperty(propertyId);
+
         //Assert
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(expect.objectContaining({
@@ -42,6 +47,7 @@ describe("/properties/get endpoint", () => {
             rent: reqBody.rent,
             is_available: reqBody.is_available
         }));
+        
         //Teardown
         await deleteProperty(propertyId);
     })
@@ -56,8 +62,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.message).toBe("name key is missed");
@@ -70,8 +78,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.message).toBe("address key is missed");
@@ -84,8 +94,10 @@ describe("/properties/get endpoint", () => {
             "address": "135 Riyadh, SA",
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.message).toBe("rent key is missed");
@@ -98,8 +110,10 @@ describe("/properties/get endpoint", () => {
             "address": "135 Riyadh, SA",
             "rent": 6234.5
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.message).toBe("is_available key is missed");
@@ -114,8 +128,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Invalid name provided");
@@ -130,8 +146,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Invalid address provided");
@@ -146,8 +164,10 @@ describe("/properties/get endpoint", () => {
             "rent": -100,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Invalid rent provided");
@@ -161,8 +181,10 @@ describe("/properties/get endpoint", () => {
             "rent": 0,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Invalid rent provided");
@@ -177,8 +199,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": "yes"
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Invalid availability status provided");
@@ -193,8 +217,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Name cannot be null");
@@ -209,8 +235,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Address cannot be null");
@@ -225,8 +253,10 @@ describe("/properties/get endpoint", () => {
             "rent": null,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Rent cannot be null");
@@ -241,8 +271,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": null
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Availability status cannot be null");
@@ -257,8 +289,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Name cannot be undefined");
@@ -273,8 +307,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Address cannot be undefined");
@@ -289,8 +325,10 @@ describe("/properties/get endpoint", () => {
             "rent": undefined,
             "is_available": true
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Rent cannot be undefined");
@@ -305,8 +343,10 @@ describe("/properties/get endpoint", () => {
             "rent": 6234.5,
             "is_available": undefined
         };
+        
         //Act
         const response = await postProperty(reqBody);
+        
         //Assert
         expect(response.statusCode).toBe(400);
         expect(response.body.error).toBe("Availability status cannot be undefined");
