@@ -1,6 +1,6 @@
 const { postProperty, getProperty, deleteProperty } = require('../utils/apiUtility');
 
-describe("/properties/get endpoint", () => {
+describe("/properties/post endpoint", () => {
     //Positive scenarios
     it('should respond with success status code on sending valid property data', async () => {
         //Arrange
