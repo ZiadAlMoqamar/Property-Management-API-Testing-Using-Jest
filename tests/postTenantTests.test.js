@@ -88,58 +88,66 @@ describe("/tenants/post endpoint", () => {
     });
 
     it('should respond with an error status code when \'email\' is missing', async () => {
-
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code when \'phone\' is missing', async () => {
-
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code when \'property_id\' is missing', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'name\' is invalid', async () => {
-
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'email\' is invalid', async () => {
-
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is invalid', async () => {
-
+        fail('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'property_id\' is invalid', async () => {
-
+        fail('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'name\' is null', async () => {
+        fail('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'email\' is null', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is null', async () => {
-
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'property_id\' is null', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'name\' is null', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'email\' is undefined', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is undefined', async () => {
+        fail('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'property_id\' is undefined', async () => {
+        fail('Not implemented yet');
     });
 }
 )
