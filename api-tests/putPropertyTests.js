@@ -446,87 +446,87 @@ describe("/properties/{id} PUT endpoint", () => {
     });
 
     it('should respond with correct error status code and correct error message on sending null address value in the property payload', async () => {
-      // Arrange
-    const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": null,
-        "rent": 3200,
-        "is_available": false
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": null,
+            "rent": 3200,
+            "is_available": false
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("Address cannot be null");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Address cannot be null");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending null rent value in the property payload', async () => {
-      // Arrange
-      const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": "1234 Updated St",
-        "rent": null,
-        "is_available": false
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": "1234 Updated St",
+            "rent": null,
+            "is_available": false
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("Rent cannot be null");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Rent cannot be null");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending null is_available value in the property payload', async () => {
-      // Arrange
-      const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": "1234 Updated St",
-        "rent": 3200,
-        "is_available": null
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": "1234 Updated St",
+            "rent": 3200,
+            "is_available": null
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("is_available cannot be null");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("is_available cannot be null");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     // Undefined values test cases 
@@ -550,115 +550,115 @@ describe("/properties/{id} PUT endpoint", () => {
     });
 
     it('should respond with correct error status code and correct error message on sending undefined name value in the property payload', async () => {
-      // Arrange
-    const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": undefined,
-        "address": "1234 Updated St",
-        "rent": 3200,
-        "is_available": false
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": undefined,
+            "address": "1234 Updated St",
+            "rent": 3200,
+            "is_available": false
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("Name cannot be undefined");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Name cannot be undefined");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined address value in the property payload', async () => {
-      // Arrange
-      const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": undefined,
-        "rent": 3200,
-        "is_available": false
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": undefined,
+            "rent": 3200,
+            "is_available": false
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("Address cannot be undefined");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Address cannot be undefined");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined rent value in the property payload', async () => {
-      // Arrange
-      const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": "1234 Updated St",
-        "rent": undefined,
-        "is_available": false
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": "1234 Updated St",
+            "rent": undefined,
+            "is_available": false
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("Rent cannot be undefined");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Rent cannot be undefined");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined is_available value in the property payload', async () => {
-      // Arrange
-      const postResponse = await postProperty({
-        "name": "property original",
-        "address": "1234 Original St",
-        "rent": 3000,
-        "is_available": true
-    });
-    const propertyId = postResponse.body.id;
-    const reqBody = {
-        "id": propertyId,
-        "name": "property updated",
-        "address": "1234 Updated St",
-        "rent": 3200,
-        "is_available": undefined
-    };
+        // Arrange
+        const postResponse = await postProperty({
+            "name": "property original",
+            "address": "1234 Original St",
+            "rent": 3000,
+            "is_available": true
+        });
+        const propertyId = postResponse.body.id;
+        const reqBody = {
+            "id": propertyId,
+            "name": "property updated",
+            "address": "1234 Updated St",
+            "rent": 3200,
+            "is_available": undefined
+        };
 
-    // Act
-    const updateResponse = await updateProperty(propertyId, reqBody);
+        // Act
+        const updateResponse = await updateProperty(propertyId, reqBody);
 
-    // Assert
-    expect(updateResponse.statusCode).toBe(400);
-    expect(updateResponse.body.error).toBe("is_available cannot be undefined");
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("is_available cannot be undefined");
 
-    // Teardown
-    await deleteProperty(propertyId);
+        // Teardown
+        await deleteProperty(propertyId);
     });
 }
 )

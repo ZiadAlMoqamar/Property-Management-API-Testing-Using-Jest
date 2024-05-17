@@ -96,7 +96,7 @@ describe("/properties/get endpoint", () => {
     });
 
     // Test case for posted properties count
-    it('should respond with the correct number of properties', async () => {
+    it('should respond with the correct count of properties', async () => {
         //Arrange
         const property1 = {
             "name": "property 5",
