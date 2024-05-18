@@ -90,8 +90,19 @@ describe("/properties/post endpoint", () => {
     });
 
     // Negative scenarios
-    // Assuming 400 Bad Request for missing key
+    it('should respond with an error status code on sending empty property payload', async () => {
+        //Arrange
+        const reqBody = {};
 
+        //Act
+        const response = await postProperty(reqBody);
+
+        //Assert
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toBe("Empty payload is not allowed");
+    });
+
+    // Assuming 400 Bad Request for missing key
     it('should respond with an error status code when \'name\' is missing', async () => {
         //Arrange
         const reqBody = {
@@ -105,7 +116,7 @@ describe("/properties/post endpoint", () => {
 
         //Assert
         expect(response.statusCode).toBe(400);
-        expect(response.body.message).toBe("name key is missed");
+        expect(response.body.error).toBe("name key is missed");
     });
 
     it('should respond with an error status code when \'address\' is missing', async () => {
@@ -121,7 +132,7 @@ describe("/properties/post endpoint", () => {
 
         //Assert
         expect(response.statusCode).toBe(400);
-        expect(response.body.message).toBe("address key is missed");
+        expect(response.body.error).toBe("address key is missed");
     });
 
     it('should respond with an error status code when \'rent\' is missing', async () => {
@@ -137,7 +148,7 @@ describe("/properties/post endpoint", () => {
 
         //Assert
         expect(response.statusCode).toBe(400);
-        expect(response.body.message).toBe("rent key is missed");
+        expect(response.body.error).toBe("rent key is missed");
     });
 
     it('should respond with an error status code when \'is_available\' is missing', async () => {
@@ -153,7 +164,7 @@ describe("/properties/post endpoint", () => {
 
         //Assert
         expect(response.statusCode).toBe(400);
-        expect(response.body.message).toBe("is_available key is missed");
+        expect(response.body.error).toBe("is_available key is missed");
     });
 
     // Test case for invalid 'name' value

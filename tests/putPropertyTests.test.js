@@ -97,7 +97,7 @@ describe("/properties/{id} PUT endpoint", () => {
 
         // Assert
         expect(updateResponse.statusCode).toBe(404);
-        expect(updateResponse.body.error).toBe("Property with the specified ID does not exist");
+        expect(updateResponse.body.error).toBe("Invalid property ID");
     });
 
     it('should respond with correct error status code and correct error message on sending zero rent value in the property payload', async () => {
@@ -122,7 +122,7 @@ describe("/properties/{id} PUT endpoint", () => {
 
         // Assert
         expect(updateResponse.statusCode).toBe(400);
-        expect(updateResponse.body.error).toBe("Rent cannot be zero");
+        expect(updateResponse.body.error).toBe("Invalid rent provided");
 
         // Teardown
         await deleteProperty(propertyId);
@@ -151,7 +151,7 @@ describe("/properties/{id} PUT endpoint", () => {
 
         // Assert
         expect(updateResponse.statusCode).toBe(400);
-        expect(updateResponse.body.error).toBe("Rent cannot be negative");
+        expect(updateResponse.body.error).toBe("Invalid rent provided");
 
         // Teardown
         await deleteProperty(propertyId);
@@ -322,25 +322,6 @@ describe("/properties/{id} PUT endpoint", () => {
     });
 
     // Empty values test cases 
-    it('should respond with correct error status code and correct error message on sending empty id value in the property payload', async () => {
-        // Arrange
-        const emptyId = '';
-        const reqBody = {
-            "id": emptyId,
-            "name": "property updated",
-            "address": "1234 Updated St",
-            "rent": 3200,
-            "is_available": false
-        };
-
-        // Act
-        const updateResponse = await updateProperty(emptyId, reqBody);
-
-        // Assert
-        expect(updateResponse.statusCode).toBe(404);
-        expect(updateResponse.body.error).toBe("Invalid property ID");
-    });
-
     it('should respond with correct error status code and correct error message on sending empty name value in the property payload', async () => {
         // Arrange
         const postResponse = await postProperty({

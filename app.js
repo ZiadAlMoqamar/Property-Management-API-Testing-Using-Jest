@@ -1,3 +1,4 @@
+const { PROPERTIES_ENDPOINT, PROPERTY_ENDPOINT, TENANTS_ENDPOINT, TENANT_ENDPOINT } = require('./globals');
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -59,21 +60,32 @@ const db = {
 
 // Express routes
 // Properties Endpoints
-app.get('/properties', (req, res) => {
+app.get(PROPERTIES_ENDPOINT, (req, res) => {
     res.status(200).json(db.findAllProperties());
 });
 
-app.post('/properties', (req, res) => {
+app.post(PROPERTIES_ENDPOINT, (req, res) => {
     const { name, address, rent, is_available } = req.body;
+
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'Empty payload is not allowed' });
+    }
+    if (rent === undefined){
+        return res.status(400).json({ error: 'Rent cannot be undefined' });
+    }
+    if (rent <= 0) {
+        return res.status(400).json({ error: 'Invalid rent provided' });
+    }
+
     try {
         const id = db.insertProperty({ name, address, rent, is_available });
         res.status(201).json({ id });
     } catch (error) {
-        res.status(400).send(error.message);
+        res.status(400).json({ error: 'Malformed property data' });
     }
 });
 
-app.get('/properties/:id', (req, res) => {
+app.get(PROPERTY_ENDPOINT+':id', (req, res) => {
     const { id } = req.params;
     const property = db.findProperty(id);
     if (property) {
@@ -84,16 +96,28 @@ app.get('/properties/:id', (req, res) => {
 });
 
 
-app.put('/properties/:id', (req, res) => {
+app.put(PROPERTY_ENDPOINT + ':id', (req, res) => {
+    const { rent } = req.body;
+
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'Empty payload is not allowed' });
+    }
+    if (rent === undefined){
+        return res.status(400).json({ error: 'Rent cannot be undefined' });
+    }
+    if (rent <= 0) {
+        return res.status(400).json({ error: 'Invalid rent provided' });
+    }
+
     try {
         db.updateProperty(req.params.id, req.body);
         res.status(200).send('Property updated');
     } catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ error: 'Invalid property ID' });
     }
 });
 
-app.delete('/properties/:id', (req, res) => {
+app.delete(PROPERTY_ENDPOINT+':id', (req, res) => {
     try {
         db.deleteProperty(req.params.id);
         res.status(200).send('Property deleted');
@@ -103,21 +127,24 @@ app.delete('/properties/:id', (req, res) => {
 });
 
 // Tenants Endpoints
-app.get('/tenants', (req, res) => {
+app.get(TENANTS_ENDPOINT, (req, res) => {
     res.status(200).json(db.findAllTenants());
 });
 
-app.post('/tenants', (req, res) => {
+app.post(TENANTS_ENDPOINT, (req, res) => {
     const { name, email, phone, property_id } = req.body;
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'Empty payload is not allowed' });
+    }
     try {
         const id = db.insertTenant({ name, email, phone, property_id });
         res.status(201).json({ id });
     } catch (error) {
-        res.status(400).send(error.message);
+        res.status(400).json({ error: 'Malformed tenant data' });
     }
 });
 
-app.get('/tenants/:id', (req, res) => {
+app.get(TENANT_ENDPOINT+':id', (req, res) => {
     const { id } = req.params;
     const tenant = db.findTenant(id);
     if (tenant) {
@@ -127,16 +154,19 @@ app.get('/tenants/:id', (req, res) => {
     }
 });
 
-app.put('/tenants/:id', (req, res) => {
+app.put(TENANT_ENDPOINT+':id', (req, res) => {
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ error: 'Empty payload is not allowed' });
+    }
     try {
         db.updateTenant(req.params.id, req.body);
         res.status(200).send('Tenant updated');
     } catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ error: 'Invalid tenant ID' });
     }
 });
 
-app.delete('/tenants/:id', (req, res) => {
+app.delete(TENANT_ENDPOINT+':id', (req, res) => {
     try {
         db.deleteTenant(req.params.id);
         res.status(200).send('Tenant deleted');

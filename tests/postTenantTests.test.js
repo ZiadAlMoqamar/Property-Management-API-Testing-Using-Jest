@@ -59,8 +59,19 @@ describe("/tenants/post endpoint", () => {
     })
 
     // Negative scenarios
-    // Assuming 400 Bad Request for missing key
+    it('should respond with an error status code on sending empty tenant payload', async () => {
+        //Arrange
+        const reqBody = {};
 
+        //Act
+        const response = await postTenant(reqBody);
+
+        //Assert
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toBe("Empty payload is not allowed");
+    });
+
+    // Assuming 400 Bad Request for missing key
     it('should respond with an error status code when \'name\' is missing', async () => {
         // Arrange
         const property = await postProperty({
@@ -88,66 +99,66 @@ describe("/tenants/post endpoint", () => {
     });
 
     it('should respond with an error status code when \'email\' is missing', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code when \'phone\' is missing', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code when \'property_id\' is missing', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'name\' is invalid', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'email\' is invalid', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is invalid', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'property_id\' is invalid', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'name\' is null', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
 
     it('should respond with an error status code and message when \'email\' is null', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is null', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'property_id\' is null', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'name\' is null', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'email\' is undefined', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'phone\' is undefined', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 
     it('should respond with an error status code and message when \'property_id\' is undefined', async () => {
-        fail('Not implemented yet');
+        throw new Error('Not implemented yet');
     });
 }
 )
