@@ -389,7 +389,7 @@ describe("/tenants/{id} PUT endpoint", () => {
         await deleteProperty(propertyId);
     });
 
-    it('should respond with correct error status code and correct error message on sending empty email value in the tenant payload', async () => {
+    it('should respond with correct error status code and correct error message on sending empty phone value in the tenant payload', async () => {
         // Arrange
         const property = await postProperty({
             "name": "property for tenant",
@@ -454,8 +454,8 @@ describe("/tenants/{id} PUT endpoint", () => {
         const updateResponse = await updateTenant(null, reqBody);
 
         // Assert
-        expect(updateResponse.statusCode).toBe(400);
-        expect(updateResponse.body.error).toBe("Tenant ID cannot be null");
+        expect(updateResponse.statusCode).toBe(404);
+        expect(updateResponse.body.error).toBe("Invalid tenant ID");
 
         // Teardown
         await deleteTenant(tenantId);
@@ -616,23 +616,185 @@ describe("/tenants/{id} PUT endpoint", () => {
 
     // Undefined values test cases
     it('should respond with correct error status code and correct error message on sending undefined id value in the tenant payload', async () => {
-        throw Error('Not implemented yet');
+        // Arrange
+        const property = await postProperty({
+            "name": "property for tenant",
+            "address": "123 Olaya St",
+            "rent": 1200,
+            "is_available": true
+        });
+        const propertyId = property.body.id;
+        const undefinedID = undefined;
+        const ReqBody = {
+            "id": undefinedID,
+            "name": "tenant r",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        };
+
+
+        // Act
+        const updateResponse = await updateTenant(undefinedID, ReqBody);
+
+        // Assert
+        expect(updateResponse.statusCode).toBe(404);
+        expect(updateResponse.body.error).toBe("Invalid tenant ID");
+
+        // Teardown
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined name value in the tenant payload', async () => {
-        throw Error('Not implemented yet');
+        // Arrange
+        const property = await postProperty({
+            "name": "property for tenant",
+            "address": "123 Olaya St",
+            "rent": 1200,
+            "is_available": true
+        });
+        const propertyId = property.body.id;
+        const postResponse = await postTenant({
+            "id": propertyId,
+            "name": "tenant d",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        });
+        const tenantId = postResponse.body.id;
+        const ReqBody = {
+            "id": propertyId,
+            "name": undefined,
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        };
+
+
+        // Act
+        const updateResponse = await updateTenant(tenantId, ReqBody);
+
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Name cannot be undefined");
+
+        // Teardown
+        await deleteTenant(tenantId);
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined email value in the tenant payload', async () => {
-        throw Error('Not implemented yet');
+        // Arrange
+        const property = await postProperty({
+            "name": "property for tenant",
+            "address": "123 Olaya St",
+            "rent": 1200,
+            "is_available": true
+        });
+        const propertyId = property.body.id;
+        const postResponse = await postTenant({
+            "id": propertyId,
+            "name": "tenant d",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        });
+        const tenantId = postResponse.body.id;
+        const ReqBody = {
+            "id": propertyId,
+            "name": "tenant r",
+            "email": undefined,
+            "phone": "1234567890",
+            "property_id": propertyId
+        };
+
+
+        // Act
+        const updateResponse = await updateTenant(tenantId, ReqBody);
+
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Email cannot be undefined");
+
+        // Teardown
+        await deleteTenant(tenantId);
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined phone value in the tenant payload', async () => {
-        throw Error('Not implemented yet');
+        // Arrange
+        const property = await postProperty({
+            "name": "property for tenant",
+            "address": "123 Olaya St",
+            "rent": 1200,
+            "is_available": true
+        });
+        const propertyId = property.body.id;
+        const postResponse = await postTenant({
+            "id": propertyId,
+            "name": "tenant d",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        });
+        const tenantId = postResponse.body.id;
+        const ReqBody = {
+            "id": propertyId,
+            "name": "tenant r",
+            "email": "john.doe@example.com",
+            "phone": undefined,
+            "property_id": propertyId
+        };
+
+
+        // Act
+        const updateResponse = await updateTenant(tenantId, ReqBody);
+
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Phone cannot be undefined");
+
+        // Teardown
+        await deleteTenant(tenantId);
+        await deleteProperty(propertyId);
     });
 
     it('should respond with correct error status code and correct error message on sending undefined property_id value in the property payload', async () => {
-        throw Error('Not implemented yet');
+        // Arrange
+        const property = await postProperty({
+            "name": "property for tenant",
+            "address": "123 Olaya St",
+            "rent": 1200,
+            "is_available": true
+        });
+        const propertyId = property.body.id;
+        const postResponse = await postTenant({
+            "id": propertyId,
+            "name": "tenant d",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": propertyId
+        });
+        const tenantId = postResponse.body.id;
+        const ReqBody = {
+            "id": propertyId,
+            "name": "tenant r",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": undefined
+        };
+
+
+        // Act
+        const updateResponse = await updateTenant(tenantId, ReqBody);
+
+        // Assert
+        expect(updateResponse.statusCode).toBe(400);
+        expect(updateResponse.body.error).toBe("Property ID cannot be undefined");
+
+        // Teardown
+        await deleteTenant(tenantId);
+        await deleteProperty(propertyId);
     });
 
 }
