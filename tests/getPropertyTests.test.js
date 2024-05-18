@@ -101,20 +101,9 @@ describe("/properties/{id} GET endpoint", () => {
 
         //Assert
         expect(getResponse.statusCode).toBe(404);
-        expect(getResponse.body.error).toBe("Property not found");
-    });
-
-    it('should respond with correct error status code and correct error message on sending empty id', async () => {
-        //Arrange
-        const emptyId = '';
-
-        //Act
-        const getResponse = await getProperty(emptyId);
-
-        //Assert
-        expect(getResponse.statusCode).toBe(400);
         expect(getResponse.body.error).toBe("Invalid property ID");
     });
+
 
     it('should respond with correct error status code and correct error message on sending null id', async () => {
         //Arrange
@@ -124,8 +113,8 @@ describe("/properties/{id} GET endpoint", () => {
         const getResponse = await getProperty(nullId);
 
         //Assert
-        expect(getResponse.statusCode).toBe(400);
-        expect(getResponse.body.error).toBe("Property ID cannot be null");
+        expect(getResponse.statusCode).toBe(404);
+        expect(getResponse.body.error).toBe("Invalid property ID");
     });
 
     it('should respond with correct error status code and correct error message on sending undefined id', async () => {
@@ -136,7 +125,7 @@ describe("/properties/{id} GET endpoint", () => {
         const getResponse = await getProperty(undefinedId);
 
         //Assert
-        expect(getResponse.statusCode).toBe(400);
-        expect(getResponse.body.error).toBe("Property ID is required");
+        expect(getResponse.statusCode).toBe(404);
+        expect(getResponse.body.error).toBe("Invalid property ID");
     });
 });

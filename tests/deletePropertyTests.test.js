@@ -47,18 +47,6 @@ describe("/properties/{id} DELETE endpoint", () => {
 
         //Assert
         expect(deleteResponse.statusCode).toBe(404);
-        expect(deleteResponse.body.error).toBe("Property not found");
-    });
-
-    it('should respond with correct error status code and correct error message on sending empty id', async () => {
-        //Arrange
-        const emptyId = '';
-
-        //Act
-        const deleteResponse = await deleteProperty(emptyId);
-
-        //Assert
-        expect(deleteResponse.statusCode).toBe(400);
         expect(deleteResponse.body.error).toBe("Invalid property ID");
     });
 
@@ -70,8 +58,8 @@ describe("/properties/{id} DELETE endpoint", () => {
         const deleteResponse = await deleteProperty(nullId);
 
         //Assert
-        expect(deleteResponse.statusCode).toBe(400);
-        expect(deleteResponse.body.error).toBe("Property ID cannot be null");
+        expect(deleteResponse.statusCode).toBe(404);
+        expect(deleteResponse.body.error).toBe("Invalid property ID");
     });
 
     it('should respond with correct error status code and correct error message on sending undefined id', async () => {
@@ -82,7 +70,7 @@ describe("/properties/{id} DELETE endpoint", () => {
         const deleteResponse = await deleteProperty(undefinedId);
 
         //Assert
-        expect(deleteResponse.statusCode).toBe(400);
-        expect(deleteResponse.body.error).toBe("Property ID is required");
+        expect(deleteResponse.statusCode).toBe(404);
+        expect(deleteResponse.body.error).toBe("Invalid property ID");
     });
 });

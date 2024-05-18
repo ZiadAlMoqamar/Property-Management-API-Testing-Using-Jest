@@ -1,4 +1,4 @@
-const { postProperty, getProperty, deleteProperty } = require('../utils/apiUtility');
+const { postProperty, getAllProperties, getProperty, deleteProperty } = require('../utils/apiUtility');
 
 describe("/properties/post endpoint", () => {
     //Positive scenarios
@@ -74,8 +74,8 @@ describe("/properties/post endpoint", () => {
         ]);
 
         // Assert
-        expect(postResponse1.statusCode).toBe(200);
-        expect(postResponse2.statusCode).toBe(200);
+        expect(postResponse1.statusCode).toBe(201);
+        expect(postResponse2.statusCode).toBe(201);
 
         const getAllPropertiesResponse = await getAllProperties();
         const postedProperty1 = getAllPropertiesResponse.body.find(p => p.id === postResponse1.body.id);

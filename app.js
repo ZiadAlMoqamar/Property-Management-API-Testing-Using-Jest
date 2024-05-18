@@ -74,13 +74,15 @@ app.post('/properties', (req, res) => {
 });
 
 app.get('/properties/:id', (req, res) => {
-    const property = db.findProperty(req.params.id);
+    const { id } = req.params;
+    const property = db.findProperty(id);
     if (property) {
         res.status(200).json(property);
     } else {
-        res.status(404).send('Property not found');
+        res.status(404).json({ error: 'Invalid property ID' });
     }
 });
+
 
 app.put('/properties/:id', (req, res) => {
     try {
@@ -96,7 +98,7 @@ app.delete('/properties/:id', (req, res) => {
         db.deleteProperty(req.params.id);
         res.status(200).send('Property deleted');
     } catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ error: 'Invalid property ID' });
     }
 });
 
@@ -116,11 +118,12 @@ app.post('/tenants', (req, res) => {
 });
 
 app.get('/tenants/:id', (req, res) => {
-    const tenant = db.findTenant(req.params.id);
+    const { id } = req.params;
+    const tenant = db.findTenant(id);
     if (tenant) {
         res.status(200).json(tenant);
     } else {
-        res.status(404).send('Tenant not found');
+        res.status(404).json({ error: 'Invalid tenant ID' });
     }
 });
 
@@ -138,7 +141,7 @@ app.delete('/tenants/:id', (req, res) => {
         db.deleteTenant(req.params.id);
         res.status(200).send('Tenant deleted');
     } catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ error: 'Invalid tenant ID' });
     }
 });
 
