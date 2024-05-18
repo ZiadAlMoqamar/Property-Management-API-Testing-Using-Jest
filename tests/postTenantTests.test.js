@@ -99,66 +99,255 @@ describe("/tenants/post endpoint", () => {
     });
 
     it('should respond with an error status code when \'email\' is missing', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Email is required");
     });
-
+    
     it('should respond with an error status code when \'phone\' is missing', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Phone is required");
     });
-
+    
     it('should respond with an error status code when \'property_id\' is missing', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": "1234567890"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Property ID is required");
     });
-
+    
     it('should respond with an error status code and message when \'name\' is invalid', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "12345",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Invalid name format");
     });
-
+    
     it('should respond with an error status code and message when \'email\' is invalid', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "not-an-email",
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Invalid email format");
     });
-
+    
     it('should respond with an error status code and message when \'phone\' is invalid', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": "abcde12345",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Invalid phone number");
     });
-
-
+    
     it('should respond with an error status code and message when \'property_id\' is invalid', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": "invalid-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Invalid property ID format");
     });
-
-
+    
     it('should respond with an error status code and message when \'name\' is null', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": null,
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Name cannot be null");
     });
-
-
+    
     it('should respond with an error status code and message when \'email\' is null', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": null,
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Email cannot be null");
     });
-
+    
     it('should respond with an error status code and message when \'phone\' is null', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": null,
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Phone cannot be null");
     });
-
+    
     it('should respond with an error status code and message when \'property_id\' is null', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        const tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": null
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Property ID cannot be null");
     });
-
-    it('should respond with an error status code and message when \'name\' is null', async () => {
-        throw new Error('Not implemented yet');
+    
+    it('should respond with an error status code and message when \'name\' is undefined', async () => {
+        // Arrange
+        let tenantReqBody = {
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+        delete tenantReqBody.name; // Simulate undefined 'name'
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Name is required");
     });
-
+    
     it('should respond with an error status code and message when \'email\' is undefined', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        let tenantReqBody = {
+            "name": "John Doe",
+            "email": undefined,
+            "phone": "1234567890",
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Email is required");
     });
-
+    
     it('should respond with an error status code and message when \'phone\' is undefined', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        let tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": undefined,
+            "property_id": "some-property-id"
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Phone is required");
     });
 
     it('should respond with an error status code and message when \'property_id\' is undefined', async () => {
-        throw new Error('Not implemented yet');
+        // Arrange
+        let tenantReqBody = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "phone": "1234567890",
+            "property_id": undefined
+        };
+    
+        // Act
+        const postResponse = await postTenant(tenantReqBody);
+    
+        // Assert
+        expect(postResponse.statusCode).toBe(400);
+        expect(postResponse.body.error).toBe("Property ID is required");
     });
 }
 )

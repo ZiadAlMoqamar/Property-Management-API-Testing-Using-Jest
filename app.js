@@ -133,9 +133,20 @@ app.get(TENANTS_ENDPOINT, (req, res) => {
 
 app.post(TENANTS_ENDPOINT, (req, res) => {
     const { name, email, phone, property_id } = req.body;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d+$/;
     if (Object.keys(req.body).length === 0) {
         return res.status(400).json({ error: 'Empty payload is not allowed' });
     }
+
+    if (email && !emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    if (phone && !phoneRegex.test(phone)) {
+        return res.status(400).json({ error: 'Invalid phone number' });
+    }
+
     try {
         const id = db.insertTenant({ name, email, phone, property_id });
         res.status(201).json({ id });
@@ -155,8 +166,20 @@ app.get(TENANT_ENDPOINT+':id', (req, res) => {
 });
 
 app.put(TENANT_ENDPOINT+':id', (req, res) => {
+    const { name, email, phone, property_id } = req.body;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d+$/;
+
     if (Object.keys(req.body).length === 0) {
         return res.status(400).json({ error: 'Empty payload is not allowed' });
+    }
+
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    if (!phoneRegex.test(phone)) {
+        return res.status(400).json({ error: 'Invalid phone number' });
     }
     try {
         db.updateTenant(req.params.id, req.body);
