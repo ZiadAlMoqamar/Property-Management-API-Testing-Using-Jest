@@ -22,7 +22,7 @@ describe("/tenants/post endpoint", () => {
     const postResponse = await postTenant(tenantReqBody);
 
     // Assert
-    expect(postResponse.statusCode).toBe(200);
+    expect(postResponse.statusCode).toBe(201);
     expect(postResponse.body.id).toBeDefined();
 
     // Teardown

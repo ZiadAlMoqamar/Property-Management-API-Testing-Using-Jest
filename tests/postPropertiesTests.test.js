@@ -15,7 +15,7 @@ describe("/properties/post endpoint", () => {
         const response = await postProperty(reqBody);
 
         //Assert
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(201);
         // Assuming it will respond with the property id on success.
         const propertyId = response.body.id;
         expect(propertyId).toBeDefined();

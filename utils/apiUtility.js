@@ -1,6 +1,9 @@
 const { BASE_URL, PROPERTIES_ENDPOINT, PROPERTY_ENDPOINT, TENANTS_ENDPOINT, TENANT_ENDPOINT } = require('../globals');
+const app = require('../app');
 const supertest = require('supertest');
-const api = supertest(BASE_URL);
+const api = supertest(app);
+// You can replace the express app with the BASE_URL, when the live endpoints are deployed.
+//const api = supertest(BASE_URL);
 
 async function getAllProperties() {
     const res = await api
@@ -10,7 +13,8 @@ async function getAllProperties() {
 
 async function postProperty(reqBody) {
     const res = await api
-        .POST(reqBody);
+        .post(PROPERTIES_ENDPOINT)
+        .send(reqBody);
     return res;
 }
 

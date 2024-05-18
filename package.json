@@ -7,10 +7,28 @@
     "testserially": "jest -i"
   },
   "keywords": [],
+  "jest": {
+    "reporters": [
+      "default",
+      [
+        "./node_modules/jest-html-reporter",
+        {
+          "pageTitle": "Property Management API Test Report",
+          "outputPath": "./tests_output/api-test-report.html",
+          "includeFailureMsg": true
+        }
+      ]
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2",
     "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuid": "^9.0.1"
   }
 }
